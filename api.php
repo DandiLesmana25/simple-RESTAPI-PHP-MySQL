@@ -12,6 +12,7 @@ switch ($method) {
             $id = $_GET['id'];
             $result = $conn->query("SELECT * FROM users WHERE id=$id");
             $data = $result->fetch_assoc();
+            // return json data users by id
             echo json_encode($data);
         } else {
             $result = $conn->query("SELECT * FROM users");
@@ -19,6 +20,7 @@ switch ($method) {
             while ($row = $result->fetch_assoc()) {
                 $users[] = $row;
             }
+            // return json data all user
             echo json_encode($users);
         }
         break;
@@ -27,6 +29,7 @@ switch ($method) {
         $name = $input['name'];
         $email = $input['email'];
         $age = $input['age'];
+        // add data users
         $conn->query("INSERT INTO users (name, email, age) VALUES ('$name', '$email', $age)");
         echo json_encode(["message" => "User added successfully"]);
         break;
@@ -36,6 +39,7 @@ switch ($method) {
         $name = $input['name'];
         $email = $input['email'];
         $age = $input['age'];
+        // edit data users
         $conn->query("UPDATE users SET name='$name',
                      email='$email', age=$age WHERE id=$id");
         echo json_encode(["message" => "User updated successfully"]);
@@ -43,6 +47,7 @@ switch ($method) {
 
     case 'DELETE':
         $id = $_GET['id'];
+        // delete data users by id
         $conn->query("DELETE FROM users WHERE id=$id");
         echo json_encode(["message" => "User deleted successfully"]);
         break;
